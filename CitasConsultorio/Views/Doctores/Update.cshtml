@@ -1,0 +1,74 @@
+﻿@model CitasConsultorio.Models.DTO.Doctor.DoctorEditar
+@{
+    ViewBag.Title = "Editar Doctor";
+}
+
+<div class="row mt-3">
+    <div class="col-xs-6 col-xs-offset-3 col-md-4 col-md-offset-4">
+        <h2>@ViewBag.Title</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-6 col-xs-offset-3 col-md-4 col-md-offset-4">
+        @using (Html.BeginForm("Update", "Doctores", FormMethod.Post, new { role = "form", id = "frmForm" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(a => a.IdDoctor)
+            @Html.HiddenFor(a => a.IdPersona)
+
+            <br />
+            @Html.LabelFor(a => a.IdDoctor) @:&nbsp; @Html.Label(Model.IdDoctor.ToString())
+            <br />
+            <br />
+            @Html.LabelFor(a => a.NombrePersona)
+            @Html.TextBoxFor(a => a.NombrePersona, new { @class = "form-control" })
+            @Html.ValidationMessage("NombrePersona", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(a => a.Edad)
+            @Html.TextBoxFor(a => a.Edad, new { @class = "form-control", type = "number", min = "0", step = "1" })
+            @Html.ValidationMessage("Edad", new { @class = "text-danger" })
+            <br />
+            @Html.Label("Sexo")
+            <br />
+            <div>
+                @Html.RadioButtonFor(a => a.Sexo, false, new { id = "rbFemenino", @class = "radio-inline" }) @Html.Label("Femenino", new { @for = "rbFemenino", @class = "mr-2" })
+                @Html.RadioButtonFor(a => a.Sexo, true, new { id = "rbMasculino", @class = "radio-inline" }) @Html.Label("Masculino", new { @for = "rbMasculino" })
+            </div>
+            @Html.ValidationMessage("Sexo", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(a => a.IdTurno)
+            @Html.DropDownListFor(a => a.IdTurno, new SelectList(ViewBag.Turnos, "IdTurno", "NombreTurno"), new { @class = "form-control" })
+            @Html.ValidationMessage("IdTurno", new { @class = "text-danger" })
+            <br />
+
+            <div class="pull-left">
+                <button type="button" class="btn btn-danger" onclick="document.location.href = '@Url.Content("~/Doctores")'">
+                    <span class="glyphicon glyphicon-chevron-left"> Cancelar</span>
+                </button>
+            </div>
+
+            <div class="pull-right">
+                <button id="btnGuardar" type="submit" class="btn btn-success">
+                    <span class="glyphicon glyphicon-ok"> Guardar</span>
+                </button>
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var urlRoot = "@Url.Content("~/")";
+        });
+    </script>
+
+    @if (ViewBag.MensajeDoctorEditado != null)
+    {
+        <script>
+            alertify.alert("@ViewBag.MensajeDoctorEditado", () => { document.location.href = "@Url.Content("~/Doctores")" }).set({ title: 'Correcto!' });
+        </script>
+    }
+}

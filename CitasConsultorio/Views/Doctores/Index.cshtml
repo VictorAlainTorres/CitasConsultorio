@@ -1,7 +1,104 @@
-﻿
+﻿@model List<CitasConsultorio.Models.DTO.Doctor.DoctorListar>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Doctores";
 }
 
-<h2>Index</h2>
+<div class="row mt-3">
+    <div class="col-xs-12 col-lg-12">
+        <h2>@ViewBag.Title</h2>
+    </div>
+</div>
 
+<div class="row mb-2">
+    <div class="col-xs-12">
+        <button type="button" class="btn btn-success" onclick="document.location.href = '@Url.Content("~/Doctores/Create")'">
+            <span class="glyphicon glyphicon-plus">
+                Agregar
+            </span>
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Sexo
+                    </th>
+                    <th>
+                        Edad
+                    </th>
+                    <th>
+                        Turno
+                    </th>
+                    <th>
+                        Editar
+                    </th>
+                    <th>
+                        Eliminar
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var doctor in Model)
+                {
+                <tr>
+                    <td>
+                        @doctor.IdDoctor
+                    </td>
+                    <td>
+                        @doctor.NombrePersona
+                    </td>
+                    <td>
+                        @doctor.Sexo
+                    </td>
+                    <td>
+                        @doctor.Edad
+                    </td>
+                    <td>
+                        @doctor.Turno
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-warning btn-sm" onclick="document.location.href = '@Url.Content("~/Doctores/Update/" + doctor.IdDoctor)'">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="eliminarDoctor(@doctor.IdDoctor, '@doctor.NombrePersona')">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        function eliminarDoctor(id, nombre) {
+            alertify.confirm('¿Desea eliminar al Doctor ' + nombre + '?')
+                .set('labels', { ok: 'Aceptar', cancel: 'Cancelar' })
+                .set({ title: 'Eliminar' })
+                .set('onok', () => {
+                    $.post("@Url.Content("~/Doctores/Delete")", {Id: id}, (datos) => {
+                        if (datos?.Eliminado) {
+                            alertify.alert("El Doctor " + nombre + " ha sido eliminado", () => { document.location.href = "@Url.Content("~/Doctores")" }).set({ title: 'Correcto!' });
+                        } else {
+                            alertify.alert(datos).set({title: 'Error'});
+                        }
+                    });
+                });
+        }
+    </script>
+}

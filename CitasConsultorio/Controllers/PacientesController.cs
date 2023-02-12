@@ -159,7 +159,7 @@ namespace CitasConsultorio.Controllers
             using (var db = new ConsultorioEntities())
             {
                 var personas = (from a in db.Persona
-                                where a.NombrePersona.Contains(prefix)
+                                where a.NombrePersona.Contains(prefix) && a.Activo == true
                                 select new { IdPersona = a.IdPersona, NombrePersona = a.NombrePersona, Sexo = a.Sexo, Edad = a.Edad }).ToList();
                 return Json(personas, JsonRequestBehavior.AllowGet);
             }
