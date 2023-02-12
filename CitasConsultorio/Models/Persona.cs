@@ -17,21 +17,22 @@ namespace CitasConsultorio.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Persona()
         {
-            this.Doctor = new HashSet<Doctor>();
             this.Paciente = new HashSet<Paciente>();
             this.Usuario = new HashSet<Usuario>();
+            this.Doctor = new HashSet<Doctor>();
         }
     
         public int IdPersona { get; set; }
         public string NombrePersona { get; set; }
+        public int Edad { get; set; }
         public bool Sexo { get; set; }
         public bool Activo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Doctor> Doctor { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Paciente> Paciente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Usuario> Usuario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Doctor> Doctor { get; set; }
     }
 }

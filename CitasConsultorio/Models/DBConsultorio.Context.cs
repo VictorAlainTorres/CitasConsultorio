@@ -25,13 +25,12 @@ namespace CitasConsultorio.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Dia> Dia { get; set; }
-        public virtual DbSet<Doctor> Doctor { get; set; }
-        public virtual DbSet<EstatusAtencion> EstatusAtencion { get; set; }
-        public virtual DbSet<Horario> Horario { get; set; }
-        public virtual DbSet<Paciente> Paciente { get; set; }
-        public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Cita> Cita { get; set; }
+        public virtual DbSet<EstatusAtencion> EstatusAtencion { get; set; }
+        public virtual DbSet<Paciente> Paciente { get; set; }
         public virtual DbSet<Persona> Persona { get; set; }
+        public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<Doctor> Doctor { get; set; }
+        public virtual DbSet<Turno> Turno { get; set; }
     }
 }

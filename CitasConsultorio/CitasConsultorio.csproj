@@ -156,25 +156,28 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DBConsultorio.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Dia.cs">
-      <DependentUpon>DBConsultorio.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Doctor.cs">
       <DependentUpon>DBConsultorio.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DTO\Doctor\DoctorAgregar.cs" />
+    <Compile Include="Models\DTO\Doctor\DoctorEditar.cs" />
+    <Compile Include="Models\DTO\Doctor\DoctorListar.cs" />
+    <Compile Include="Models\DTO\Paciente\PacienteAgregar.cs" />
+    <Compile Include="Models\DTO\Paciente\PacienteEditar.cs" />
+    <Compile Include="Models\DTO\Paciente\PacienteListar.cs" />
     <Compile Include="Models\DTO\Usuario\UsuarioAgregar.cs" />
     <Compile Include="Models\DTO\Usuario\UsuarioEditar.cs" />
     <Compile Include="Models\DTO\Usuario\UsuarioListar.cs" />
     <Compile Include="Models\EstatusAtencion.cs">
       <DependentUpon>DBConsultorio.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Horario.cs">
-      <DependentUpon>DBConsultorio.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Paciente.cs">
       <DependentUpon>DBConsultorio.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Persona.cs">
+      <DependentUpon>DBConsultorio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Turno.cs">
       <DependentUpon>DBConsultorio.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Usuario.cs">
@@ -274,13 +277,12 @@
     <Content Include="Views\Citas\Index.cshtml" />
     <Content Include="Views\Doctores\Index.cshtml" />
     <Content Include="Views\Pacientes\Index.cshtml" />
+    <Content Include="Views\Pacientes\Create.cshtml" />
+    <Content Include="Views\Pacientes\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\DTO\Cita\" />
-    <Folder Include="Models\DTO\Doctor\" />
-    <Folder Include="Models\DTO\Paciente\" />
-    <Folder Include="Views\Cita\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

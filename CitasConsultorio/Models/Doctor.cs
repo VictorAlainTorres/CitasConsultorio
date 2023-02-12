@@ -17,18 +17,17 @@ namespace CitasConsultorio.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Doctor()
         {
-            this.Horario = new HashSet<Horario>();
             this.Cita = new HashSet<Cita>();
         }
     
         public int IdDoctor { get; set; }
+        public int IdTurno { get; set; }
         public int IdPersona { get; set; }
         public bool Activo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Horario> Horario { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cita> Cita { get; set; }
         public virtual Persona Persona { get; set; }
+        public virtual Turno Turno { get; set; }
     }
 }

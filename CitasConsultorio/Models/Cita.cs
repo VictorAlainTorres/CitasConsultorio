@@ -21,7 +21,6 @@ namespace CitasConsultorio.Models
         public System.DateTime FechaHoraInicio { get; set; }
         public System.DateTime FechaHoraFin { get; set; }
         public decimal PesoPaciente { get; set; }
-        public int EdadPaciente { get; set; }
         public string Alergias { get; set; }
         public string AntecedentesMedicos { get; set; }
         public string Sintomas { get; set; }
@@ -34,11 +33,11 @@ namespace CitasConsultorio.Models
         public Nullable<int> IdUsuarioUpdate { get; set; }
         public Nullable<int> IdUsuarioDelete { get; set; }
     
-        public virtual Doctor Doctor { get; set; }
         public virtual EstatusAtencion EstatusAtencion { get; set; }
         public virtual Paciente Paciente { get; set; }
-        public virtual Usuario Usuario { get; set; }
-        public virtual Usuario Usuario1 { get; set; }
-        public virtual Usuario Usuario2 { get; set; }
+        public virtual Usuario UsuarioDelete { get; set; }
+        public virtual Usuario UsuarioInsert { get; set; }
+        public virtual Usuario UsuarioUpdate { get; set; }
+        public virtual Doctor Doctor { get; set; }
     }
 }

@@ -52,6 +52,7 @@ namespace CitasConsultorio.Controllers
                     {
                         NombrePersona = model.NombrePersona,
                         Sexo = model.Sexo,
+                        Edad = model.Edad,
                         Activo = true
                     };
 
@@ -63,6 +64,7 @@ namespace CitasConsultorio.Controllers
 
                     persona.NombrePersona = model.NombrePersona;
                     persona.Sexo = model.Sexo;
+                    persona.Edad = model.Edad;
 
                     db.Entry(persona).State = System.Data.Entity.EntityState.Modified;
                 }
@@ -99,6 +101,7 @@ namespace CitasConsultorio.Controllers
                     IdPersona = usuario.IdPersona,
                     IdUsuario = usuario.IdUsuario,
                     NombrePersona = usuario.Persona.NombrePersona,
+                    Edad = usuario.Persona.Edad,
                     Sexo = usuario.Persona.Sexo,
                     Username = usuario.Username,
                 };
@@ -121,6 +124,7 @@ namespace CitasConsultorio.Controllers
 
                 persona.NombrePersona = model.NombrePersona;
                 persona.Sexo = model.Sexo;
+                persona.Edad = model.Edad;
 
                 if (model.Password != "")
                 {
@@ -168,10 +172,9 @@ namespace CitasConsultorio.Controllers
             {
                 var personas = (from a in db.Persona
                             where a.NombrePersona.Contains(prefix)
-                            select new { IdPersona = a.IdPersona, NombrePersona = a.NombrePersona, Sexo = a.Sexo }).ToList();
+                            select new { IdPersona = a.IdPersona, NombrePersona = a.NombrePersona, Sexo = a.Sexo, Edad = a.Edad }).ToList();
                 return Json(personas, JsonRequestBehavior.AllowGet);
             }
         }
-
     }
 }

@@ -17,9 +17,9 @@ namespace CitasConsultorio.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Usuario()
         {
-            this.Cita = new HashSet<Cita>();
-            this.Cita1 = new HashSet<Cita>();
-            this.Cita2 = new HashSet<Cita>();
+            this.CitaDelete = new HashSet<Cita>();
+            this.CitaInsert = new HashSet<Cita>();
+            this.CitaUpdate = new HashSet<Cita>();
         }
     
         public int IdUsuario { get; set; }
@@ -29,11 +29,11 @@ namespace CitasConsultorio.Models
         public bool Activo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cita> Cita { get; set; }
+        public virtual ICollection<Cita> CitaDelete { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cita> Cita1 { get; set; }
+        public virtual ICollection<Cita> CitaInsert { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cita> Cita2 { get; set; }
+        public virtual ICollection<Cita> CitaUpdate { get; set; }
         public virtual Persona Persona { get; set; }
     }
 }

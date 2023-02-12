@@ -16,6 +16,9 @@ namespace CitasConsultorio.Models.DTO
         public string NombrePersona { get; set; }
 
         [Required]
+        public int Edad { get; set; }
+
+        [Required]
         public bool Sexo { get; set; }
 
         [Required]

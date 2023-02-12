@@ -1,6 +1,6 @@
-﻿@model CitasConsultorio.Models.DTO.UsuarioEditar
+﻿@model CitasConsultorio.Models.DTO.Paciente.PacienteEditar
 @{
-    ViewBag.Title = "Editar Usuario";
+    ViewBag.Title = "Editar Paciente";
 }
 
 <div class="row mt-3">
@@ -11,14 +11,14 @@
 
 <div class="row">
     <div class="col-xs-6 col-xs-offset-3 col-md-4 col-md-offset-4">
-        @using (Html.BeginForm("Update", "Usuarios", FormMethod.Post, new { role = "form", id = "frmForm" }))
+        @using (Html.BeginForm("Update", "Pacientes", FormMethod.Post, new { role = "form", id = "frmForm" }))
         {
             @Html.AntiForgeryToken()
-            @Html.HiddenFor(a => a.IdUsuario)
+            @Html.HiddenFor(a => a.IdPaciente)
             @Html.HiddenFor(a => a.IdPersona)
 
             <br />
-            @Html.LabelFor(a => a.IdUsuario) @:&nbsp; @Html.Label(Model.IdUsuario.ToString())
+            @Html.LabelFor(a => a.IdPaciente) @:&nbsp; @Html.Label(Model.IdPaciente.ToString())
             <br />
             <br />
             @Html.LabelFor(a => a.NombrePersona)
@@ -37,21 +37,9 @@
             </div>
             @Html.ValidationMessage("Sexo", new { @class = "text-danger" })
             <br />
-            @Html.LabelFor(a => a.Username)
-            @Html.TextBoxFor(a => a.Username, new { @class = "form-control" })
-            @Html.ValidationMessage("Username", new { @class = "text-danger" })
-            <br />
-            @Html.LabelFor(a => a.Password)
-            @Html.PasswordFor(a => a.Password, new { @class = "form-control" })
-            @Html.ValidationMessage("Password", new { @class = "text-danger" })
-            <br />
-            @Html.LabelFor(a => a.ConfirmPassword)
-            @Html.PasswordFor(a => a.ConfirmPassword, new { @class = "form-control" })
-            @Html.ValidationMessage("ConfirmPassword", new { @class = "text-danger" })
-            <br />
 
             <div class="pull-left">
-                <button type="button" class="btn btn-danger" onclick="document.location.href = '@Url.Content("~/Usuarios")'">
+                <button type="button" class="btn btn-danger" onclick="document.location.href = '@Url.Content("~/Pacientes")'">
                     <span class="glyphicon glyphicon-chevron-left"> Cancelar</span>
                 </button>
             </div>
@@ -73,10 +61,10 @@
         });
     </script>
 
-    @if (ViewBag.MensajeUsuarioEditado != null)
+    @if (ViewBag.MensajePacienteEditado != null)
     {
         <script>
-            alertify.alert("@ViewBag.MensajeUsuarioEditado", () => { document.location.href = "@Url.Content("~/Usuarios")" }).set({ title: 'Correcto!' });
+            alertify.alert("@ViewBag.MensajePacienteEditado", () => { document.location.href = "@Url.Content("~/Pacientes")" }).set({ title: 'Correcto!' });
         </script>
     }
 }

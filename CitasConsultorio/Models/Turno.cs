@@ -12,16 +12,19 @@ namespace CitasConsultorio.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Horario
+    public partial class Turno
     {
-        public int IdHorario { get; set; }
-        public int IdDia { get; set; }
-        public int IdDoctor { get; set; }
-        public System.TimeSpan HoraInicio { get; set; }
-        public System.TimeSpan HoraFin { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Turno()
+        {
+            this.Doctor = new HashSet<Doctor>();
+        }
+    
+        public int IdTurno { get; set; }
+        public string NombreTurno { get; set; }
         public bool Activo { get; set; }
     
-        public virtual Dia Dia { get; set; }
-        public virtual Doctor Doctor { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Doctor> Doctor { get; set; }
     }
 }

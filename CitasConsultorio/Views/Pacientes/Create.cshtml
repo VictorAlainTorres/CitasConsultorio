@@ -1,6 +1,6 @@
-﻿@model CitasConsultorio.Models.DTO.UsuarioAgregar
+﻿@model CitasConsultorio.Models.DTO.Paciente.PacienteAgregar
 @{
-    ViewBag.Title = "Agregar Usuario";
+    ViewBag.Title = "Agregar Paciente";
 }
 
 <div class="row mt-3">
@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="col-xs-6 col-xs-offset-3 col-md-4 col-md-offset-4">
-        @using (Html.BeginForm("Create", "Usuarios", FormMethod.Post, new { role = "form", id = "frmCreate" }))
+        @using (Html.BeginForm("Create", "Pacientes", FormMethod.Post, new { role = "form", id = "frmCreate" }))
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(a => a.IdPersona)
@@ -33,21 +33,9 @@
             </div>
             @Html.ValidationMessage("Sexo", new { @class = "text-danger" })
             <br />
-            @Html.LabelFor(a => a.Username)
-            @Html.TextBoxFor(a => a.Username, new { @class = "form-control" })
-            @Html.ValidationMessage("Username", new { @class = "text-danger" })
-            <br />
-            @Html.LabelFor(a => a.Password)
-            @Html.PasswordFor(a => a.Password, new { @class = "form-control" })
-            @Html.ValidationMessage("Password", new { @class = "text-danger" })
-            <br />
-            @Html.LabelFor(a => a.ConfirmPassword)
-            @Html.PasswordFor(a => a.ConfirmPassword, new { @class = "form-control" })
-            @Html.ValidationMessage("ConfirmPassword", new { @class = "text-danger" })
-            <br />
 
             <div class="pull-left">
-                <button type="button" class="btn btn-danger" onclick="document.location.href = '@Url.Content("~/Usuarios")'">
+                <button type="button" class="btn btn-danger" onclick="document.location.href = '@Url.Content("~/Pacientes")'">
                     <span class="glyphicon glyphicon-chevron-left"> Cancelar</span>
                 </button>
             </div>
@@ -75,7 +63,7 @@
                 source: (request, response) => {
                     idPersona.val(0);
                     $.ajax({
-                        url: urlRoot + "Usuarios/ListarPersonas",
+                        url: urlRoot + "Pacientes/ListarPersonas",
                         type: "POST",
                         dataType: "json",
                         data: { prefix: request.term },
@@ -111,10 +99,10 @@
         });
     </script>
 
-    @if (Model != null && ViewBag.MensajeUsuarioAgregado != null)
+    @if (Model != null && ViewBag.MensajePacienteAgregado != null)
     {
         <script>
-            alertify.alert("@ViewBag.MensajeUsuarioAgregado", () => { document.location.href = "@Url.Content("~/")" + "Usuarios"; }).set({ title: 'Correcto!' });
+            alertify.alert("@ViewBag.MensajePacienteAgregado", () => { document.location.href = "@Url.Content("~/Pacientes")" }).set({ title: 'Correcto!' });
         </script>
     }
 }
