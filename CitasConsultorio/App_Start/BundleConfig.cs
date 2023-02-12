@@ -22,9 +22,20 @@ namespace CitasConsultorio
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/alertify").Include(
+                      "~/Scripts/alertifyjs/alertify.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+                      "~/Scripts/jquery-ui/jquery-ui.min.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Scripts/alertifyjs/css/alertify.min.css",
+                      "~/Scripts/alertifyjs/css/themes/bootstrap.min.css",
+                      "~/Scripts/jquery-ui/jquery-ui.min.css",
+                      "~/Scripts/jquery-ui/jquery-ui.theme.min.css",
+                      "~/Content/Site.css"));
+
         }
     }
 }

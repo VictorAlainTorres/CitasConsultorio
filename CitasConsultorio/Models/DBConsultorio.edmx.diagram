@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e14285d284d44b2295e22f6c77980a2e" Name="Diagram1">
+        <EntityTypeShape EntityType="ConsultorioModel.Dia" Width="1.5" PointX="3" PointY="1.875" />
+        <EntityTypeShape EntityType="ConsultorioModel.Doctor" Width="1.5" PointX="3" PointY="7.75" />
+        <EntityTypeShape EntityType="ConsultorioModel.EstatusAtencion" Width="1.5" PointX="6" PointY="11.25" />
+        <EntityTypeShape EntityType="ConsultorioModel.Horario" Width="1.5" PointX="5.25" PointY="7.5" />
+        <EntityTypeShape EntityType="ConsultorioModel.Paciente" Width="1.5" PointX="3" PointY="5" />
+        <EntityTypeShape EntityType="ConsultorioModel.Usuario" Width="1.5" PointX="3" PointY="10.625" />
+        <AssociationConnector Association="ConsultorioModel.FK_Horario_Dia" />
+        <AssociationConnector Association="ConsultorioModel.FK_Horario_Doctor" />
+        <EntityTypeShape EntityType="ConsultorioModel.Cita" Width="1.5" PointX="8.25" PointY="6.25" />
+        <EntityTypeShape EntityType="ConsultorioModel.Persona" Width="1.5" PointX="0.75" PointY="8" />
+        <AssociationConnector Association="ConsultorioModel.FK_Cita_Doctor" />
+        <AssociationConnector Association="ConsultorioModel.FK_Cita_EstatusAtencion" />
+        <AssociationConnector Association="ConsultorioModel.FK_Cita_Paciente" />
+        <AssociationConnector Association="ConsultorioModel.FK_Cita_UsuarioDelete" />
+        <AssociationConnector Association="ConsultorioModel.FK_Cita_UsuarioInsert" />
+        <AssociationConnector Association="ConsultorioModel.FK_Cita_UsuarioUpdate" />
+        <AssociationConnector Association="ConsultorioModel.FK_Doctor_Persona" />
+        <AssociationConnector Association="ConsultorioModel.FK_Paciente_Persona" />
+        <AssociationConnector Association="ConsultorioModel.FK_Usuario_Persona" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

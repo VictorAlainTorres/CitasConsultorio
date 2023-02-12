@@ -1,0 +1,92 @@
+﻿@model List<CitasConsultorio.Models.DTO.UsuarioListar>
+@{
+    ViewBag.Title = "Usuarios";
+}
+
+<div class="row mt-3">
+    <div class="col-xs-12 col-lg-12">
+        <h2>@ViewBag.Title</h2>
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-xs-12">
+        <button type="button" class="btn btn-success" onclick="document.location.href = '@Url.Content("~/Usuarios/Create")'">
+            <span class="glyphicon glyphicon-plus">
+                Agregar
+            </span>
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Usuario
+                    </th>
+                    <th>
+                        Nombre del Propietario
+                    </th>
+                    <th>
+                        Editar
+                    </th>
+                    <th>
+                        Eliminar
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var usuario in Model)
+                {
+                <tr>
+                    <td>
+                        @usuario.IdUsuario
+                    </td>
+                    <td>
+                        @usuario.Username
+                    </td>
+                    <td>
+                        @usuario.NombrePersona
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-warning btn-sm" onclick="document.location.href = '@Url.Content("~/Usuarios/Update/" + usuario.IdUsuario)'">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="eliminarUsuario(@usuario.IdUsuario, '@usuario.Username')">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        function eliminarUsuario(id, username) {
+            alertify.confirm('¿Desea eliminar al usuario ' + username + '?')
+                .set('labels', { ok: 'Aceptar', cancel: 'Cancelar' })
+                .set({ title: 'Eliminar' })
+                .set('onok', () => {
+                    $.post("@Url.Content("~/Usuarios/Delete")", {Id: id}, (datos) => {
+                        if (datos?.Eliminado) {
+                            alertify.alert("El usuario " + username + " ha sido eliminado", () => { document.location.href = "@Url.Content("~/Usuarios")" }).set({ title: 'Correcto!' });
+                        } else {
+                            alertify.alert(datos).set({title: 'Error'});
+                        }
+                    });
+                });
+        }
+    </script>
+}

@@ -1,0 +1,113 @@
+﻿@model CitasConsultorio.Models.DTO.UsuarioAgregar
+@{
+    ViewBag.Title = "Agregar Usuario";
+}
+
+<div class="row mt-3">
+    <div class="col-xs-6 col-xs-offset-3 col-md-4 col-md-offset-4">
+        <h2>@ViewBag.Title</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-6 col-xs-offset-3 col-md-4 col-md-offset-4">
+        @using (Html.BeginForm("Create", "Usuarios", FormMethod.Post, new { role = "form", id = "frmCreate" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(a => a.IdPersona)
+
+            <br />
+            @Html.LabelFor(a => a.NombrePersona)
+            @Html.EditorFor(a => a.NombrePersona)
+            @Html.ValidationMessage("NombrePersona", new { @class = "text-danger" })
+            <br />
+            @Html.Label("Sexo")
+            <br />
+            <div>
+                @Html.RadioButtonFor(a => a.Sexo, false, new { id = "rbFemenino", @class = "radio-inline" }) @Html.Label("Femenino", new { @for = "rbFemenino", @class = "mr-2" })
+                @Html.RadioButtonFor(a => a.Sexo, true, new { id = "rbMasculino", @class = "radio-inline" }) @Html.Label("Masculino", new { @for = "rbMasculino" })
+            </div>
+            @Html.ValidationMessage("Sexo", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(a => a.Username)
+            @Html.TextBoxFor(a => a.Username, new { @class = "form-control" })
+            @Html.ValidationMessage("Username", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(a => a.Password)
+            @Html.PasswordFor(a => a.Password, new { @class = "form-control" })
+            @Html.ValidationMessage("Password", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(a => a.ConfirmPassword)
+            @Html.PasswordFor(a => a.ConfirmPassword, new { @class = "form-control" })
+            @Html.ValidationMessage("ConfirmPassword", new { @class = "text-danger" })
+            <br />
+
+            <div class="pull-left">
+                <button type="button" class="btn btn-danger" onclick="document.location.href = '@Url.Content("~/Usuarios")'">
+                    <span class="glyphicon glyphicon-chevron-left"> Cancelar</span>
+                </button>
+            </div>
+
+            <div class="pull-right">
+                <button id="btnGuardar" type="submit" class="btn btn-success">
+                    <span class="glyphicon glyphicon-ok"> Guardar</span>
+                </button>
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var urlRoot = "@Url.Content("~/")";
+            var idPersona = $("#IdPersona");
+            var sexoFemenino = $("#rbFemenino");
+            var sexoMasculino = $("#rbMasculino");
+
+            $("#NombrePersona").autocomplete({
+                source: (request, response) => {
+                    idPersona.val(0);
+                    $.ajax({
+                        url: urlRoot + "Usuarios/ListarPersonas",
+                        type: "POST",
+                        dataType: "json",
+                        data: { prefix: request.term },
+                        success: (data) => {
+                            response($.map(data, (item) => {
+                                return {
+                                    label: item.NombrePersona,
+                                    value: item.NombrePersona,
+                                    IdPersona: item.IdPersona,
+                                    Sexo: item.Sexo
+                                };
+                            }));
+                        }
+                    });
+                },
+                messages: {
+                    noResults: () => { }, results: () => { }
+                },
+                select: async (event, ui) => {
+                    const persona = ui.item;
+
+                    idPersona.val(persona.IdPersona);
+
+                    if (persona.Sexo) {
+                        sexoMasculino.prop("checked", true);
+                    } else {
+                        sexoFemenino.prop("checked", true);
+                    }
+                }
+            }).addClass('form-control');
+        });
+    </script>
+
+    @if (Model != null && ViewBag.MensajeUsuarioAgregado != null)
+    {
+        <script>
+            alertify.alert("@ViewBag.MensajeUsuarioAgregado", () => { document.location.href = "@Url.Content("~/")" + "Usuarios"; }).set({ title: 'Correcto!' });
+        </script>
+    }
+}
