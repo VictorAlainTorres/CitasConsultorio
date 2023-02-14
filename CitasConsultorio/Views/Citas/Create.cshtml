@@ -1,0 +1,152 @@
+﻿@model CitasConsultorio.Models.DTO.Cita.CitaAgregar
+@{
+    ViewBag.Title = "Agregar Cita";
+}
+
+<div class="row mt-3">
+    <div class="col-xs-6 col-xs-offset-3 col-md-4 col-md-offset-4">
+        <h2>@ViewBag.Title</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-6 col-xs-offset-3 col-md-4 col-md-offset-4">
+        @using (Html.BeginForm("Create", "Citas", FormMethod.Post, new { role = "form", id = "frmCreate" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(a => a.IdPaciente)
+            @Html.HiddenFor(a => a.IdDoctor)
+
+            <br />
+            @Html.LabelFor(a => a.NombrePaciente)
+            @Html.EditorFor(a => a.NombrePaciente)
+            @Html.ValidationMessage("IdPaciente", new { @class = "text-danger" })
+            <br />
+            @Html.Label("Edad")
+            @Html.TextBoxFor(a => a.Edad, new {@class = "form-control", disabled = "disabled" })
+            @Html.ValidationMessage("Edad", new { @class = "text-danger" })
+            <br />
+            @Html.Label("Sexo")
+            @Html.TextBoxFor(a => a.Sexo, new {@class = "form-control", disabled = "disabled" })
+            @Html.ValidationMessage("Sexo", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(a => a.NombreDoctor)
+            @Html.EditorFor(a => a.NombreDoctor)
+            @Html.ValidationMessage("IdDoctor", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(a => a.PesoPaciente)
+            @Html.TextBoxFor(a => a.PesoPaciente, new { @class = "form-control", type = "number", min = "0", step = "0.5" })
+            @Html.ValidationMessage("PesoPaciente", new { @class = "text-danger" })
+            <br />
+            @Html.Label("Alergias")
+            @Html.TextAreaFor(a => a.Alergias, new { @class = "form-control" })
+            @Html.ValidationMessage("Alergias", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(a => a.FechaHoraInicio)
+            @Html.EditorFor(a => a.FechaHoraInicio, new { htmlAttributes =  new { @class = "form-control datetimepicker" } })
+            @Html.ValidationMessage("FechaHoraInicio", new { @class = "text-danger" })
+            <br />
+
+            <div class="pull-left">
+                <button type="button" class="btn btn-danger" onclick="document.location.href = '@Url.Content("~/Citas")'">
+                    <span class="glyphicon glyphicon-chevron-left"> Cancelar</span>
+                </button>
+            </div>
+
+            <div class="pull-right">
+                <button id="btnGuardar" type="submit" class="btn btn-success">
+                    <span class="glyphicon glyphicon-ok"> Guardar</span>
+                </button>
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var urlRoot = "@Url.Content("~/")";
+            var idPaciente = $("#IdPaciente");
+            var idDoctor = $("#IdDoctor");
+            var fechaHora = $("#FechaHoraInicio");
+            var edad = $("#Edad");
+            var sexo = $("#Sexo");
+
+            fechaHora.datetimepicker({
+                locale: 'es-us'
+            });
+
+            $("#NombrePaciente").autocomplete({
+                source: (request, response) => {
+                    idPaciente.val(0);
+                    $.ajax({
+                        url: urlRoot + "Citas/ListarPacientes",
+                        type: "POST",
+                        dataType: "json",
+                        data: { prefix: request.term },
+                        success: (data) => {
+                            response($.map(data, (item) => {
+                                return {
+                                    label: item.NombrePersona,
+                                    value: item.NombrePersona,
+                                    IdPersona: item.IdPersona,
+                                    Edad: item.Edad,
+                                    Sexo: item.Sexo
+                                };
+                            }));
+                        }
+                    });
+                },
+                messages: {
+                    noResults: () => { }, results: () => { }
+                },
+                select: async (event, ui) => {
+                    const persona = ui.item;
+
+                    idPaciente.val(persona.IdPersona)
+                    edad.val(persona.Edad);
+                    sexo.val(persona.Sexo ? 'Masculino' : 'Femenino');
+                }
+            }).addClass('form-control');
+
+            $("#NombreDoctor").autocomplete({
+                source: (request, response) => {
+                    idDoctor.val(0);
+                    $.ajax({
+                        url: urlRoot + "Citas/ListarDoctores",
+                        type: "POST",
+                        dataType: "json",
+                        data: { prefix: request.term },
+                        success: (data) => {
+                            response($.map(data, (item) => {
+                                return {
+                                    label: item.NombrePersona,
+                                    value: item.NombrePersona,
+                                    IdPersona: item.IdPersona,
+                                    Edad: item.Edad,
+                                    Sexo: item.Sexo
+                                };
+                            }));
+                        }
+                    });
+                },
+                messages: {
+                    noResults: () => { }, results: () => { }
+                },
+                select: async (event, ui) => {
+                    const persona = ui.item;
+
+                    idDoctor.val(persona.IdPersona)
+                }
+            }).addClass('form-control');
+        });
+    </script>
+
+    @if (Model != null && ViewBag.MensajeCitaAgregada != null)
+    {
+        <script>
+            alertify.alert("@ViewBag.MensajeCitaAgregada", () => { document.location.href = "@Url.Content("~/Citas")" }).set({ title: 'Correcto!' });
+        </script>
+    }
+}

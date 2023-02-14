@@ -5,23 +5,23 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="e14285d284d44b2295e22f6c77980a2e" Name="Diagram1">
-        <EntityTypeShape EntityType="ConsultorioModel.Cita" Width="1.5" PointX="5.25" PointY="4.875" />
         <EntityTypeShape EntityType="ConsultorioModel.EstatusAtencion" Width="1.5" PointX="3" PointY="0.75" />
         <EntityTypeShape EntityType="ConsultorioModel.Paciente" Width="1.5" PointX="3" PointY="6.25" />
         <EntityTypeShape EntityType="ConsultorioModel.Persona" Width="1.5" PointX="0.75" PointY="6.375" />
         <EntityTypeShape EntityType="ConsultorioModel.Usuario" Width="1.5" PointX="3" PointY="9" />
+        <AssociationConnector Association="ConsultorioModel.FK_Paciente_Persona" />
+        <AssociationConnector Association="ConsultorioModel.FK_Usuario_Persona" />
+        <EntityTypeShape EntityType="ConsultorioModel.Doctor" Width="1.5" PointX="8" PointY="6.5" />
+        <EntityTypeShape EntityType="ConsultorioModel.Turno" Width="1.5" PointX="5.75" PointY="1.75" />
+        <AssociationConnector Association="ConsultorioModel.FK_Doctor_Persona" />
+        <AssociationConnector Association="ConsultorioModel.FK_Doctor_Turno" />
+        <EntityTypeShape EntityType="ConsultorioModel.Cita" Width="1.5" PointX="10.25" PointY="3.375" />
+        <AssociationConnector Association="ConsultorioModel.FK_Cita_Doctor" />
         <AssociationConnector Association="ConsultorioModel.FK_Cita_EstatusAtencion" />
         <AssociationConnector Association="ConsultorioModel.FK_Cita_Paciente" />
         <AssociationConnector Association="ConsultorioModel.FK_Cita_UsuarioDelete" />
         <AssociationConnector Association="ConsultorioModel.FK_Cita_UsuarioInsert" />
         <AssociationConnector Association="ConsultorioModel.FK_Cita_UsuarioUpdate" />
-        <AssociationConnector Association="ConsultorioModel.FK_Paciente_Persona" />
-        <AssociationConnector Association="ConsultorioModel.FK_Usuario_Persona" />
-        <EntityTypeShape EntityType="ConsultorioModel.Doctor" Width="1.5" PointX="8" PointY="6.5" />
-        <EntityTypeShape EntityType="ConsultorioModel.Turno" Width="1.5" PointX="5.75" PointY="1.75" />
-        <AssociationConnector Association="ConsultorioModel.FK_Cita_Doctor" />
-        <AssociationConnector Association="ConsultorioModel.FK_Doctor_Persona" />
-        <AssociationConnector Association="ConsultorioModel.FK_Doctor_Turno" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

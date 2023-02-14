@@ -160,7 +160,6 @@ namespace CitasConsultorio.Controllers
         [HttpPost]
         public JsonResult Delete(int Id)
         {
-            ViewBag.MensajeDoctorEliminado = null;
             using (var db = new ConsultorioEntities())
             {
                 var doctor = db.Doctor.Find(Id);
@@ -170,9 +169,8 @@ namespace CitasConsultorio.Controllers
                 db.Entry(doctor).State = System.Data.Entity.EntityState.Modified;
 
                 db.SaveChanges();
-
-                ViewBag.MensajeDoctorEliminado = "El Doctor " + doctor.Persona.NombrePersona + " ha sido eliminado";
             }
+
             return Json(new { Eliminado = true }, JsonRequestBehavior.AllowGet);
         }
 

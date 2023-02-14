@@ -1,7 +1,104 @@
-﻿
+﻿@model List<CitasConsultorio.Models.DTO.Cita.CitaListar>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Citas";
 }
 
-<h2>Index</h2>
+<div class="row mt-3">
+    <div class="col-xs-12 col-lg-12">
+        <h2>@ViewBag.Title</h2>
+    </div>
+</div>
 
+<div class="row mb-2">
+    <div class="col-xs-12">
+        <button type="button" class="btn btn-success" onclick="document.location.href = '@Url.Content("~/Citas/Create")'">
+            <span class="glyphicon glyphicon-plus">
+                Nueva Cita
+            </span>
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Paciente
+                    </th>
+                    <th>
+                        Doctor
+                    </th>
+                    <th>
+                        Fecha y Hora de la Cita
+                    </th>
+                    <th>
+                        Estatus
+                    </th>
+                    <th>
+                        Atender
+                    </th>
+                    <th>
+                        Cancelar
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cita in Model)
+                {
+                    <tr>
+                        <td>
+                            @cita.IdCita
+                        </td>
+                        <td>
+                            @cita.NombrePaciente
+                        </td>
+                        <td>
+                            @cita.NombreDoctor
+                        </td>
+                        <td>
+                            @cita.FechaHora.ToString("dddd, dd MMMM yyyy h:mm tt")
+                        </td>
+                        <td>
+                            @cita.EstatusAtencion
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-success btn-sm" onclick="document.location.href = '@Url.Content("~/Citas/Update/" + cita.IdCita)'">
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="cancelarCita(@cita.IdCita)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        function cancelarCita(id) {
+            alertify.confirm('¿Desea cancelar la cita con Id ' + id + '?')
+                .set('labels', { ok: 'Aceptar', cancel: 'Cancelar' })
+                .set({ title: 'Cancelar' })
+                .set('onok', () => {
+                    $.post("@Url.Content("~/Citas/Delete")", {Id: id}, (datos) => {
+                        if (datos?.Cancelada) {
+                            alertify.alert("La cita con Id " + id + " ha sido cancelada", () => { document.location.href = "@Url.Content("~/Citas")" }).set({ title: 'Correcto!' });
+                        } else {
+                            alertify.alert(datos).set({title: 'Error'});
+                        }
+                    });
+                });
+        }
+    </script>
+}

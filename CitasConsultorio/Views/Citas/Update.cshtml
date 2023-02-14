@@ -1,0 +1,93 @@
+﻿@model CitasConsultorio.Models.DTO.Cita.CitaEditar
+@{
+    ViewBag.Title = "Atender Cita";
+}
+
+<div class="row mt-3">
+    <div class="col-xs-6 col-xs-offset-3 col-md-4 col-md-offset-4">
+        <h2>@ViewBag.Title</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-6 col-xs-offset-3 col-md-4 col-md-offset-4">
+        @using (Html.BeginForm("Update", "Citas", FormMethod.Post, new { role = "form", id = "frmUpdate" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(a => a.IdCita)
+            @Html.HiddenFor(a => a.NombrePaciente)
+            @Html.HiddenFor(a => a.Edad)
+            @Html.HiddenFor(a => a.Sexo)
+            @Html.HiddenFor(a => a.NombreDoctor)
+            @Html.HiddenFor(a => a.PesoPaciente)
+            @Html.HiddenFor(a => a.Alergias)
+            @Html.HiddenFor(a => a.FechaHoraInicio)
+
+            <br />
+            @Html.LabelFor(a => a.NombrePaciente)
+            @Html.TextBoxFor(a => a.NombrePaciente, new { @class = "form-control", disabled = "disabled" })
+            <br />
+            @Html.Label("Edad")
+            @Html.TextBoxFor(a => a.Edad, new { @class = "form-control", disabled = "disabled" })
+            <br />
+            @Html.Label("Sexo")
+            @Html.TextBoxFor(a => a.Sexo, new { @class = "form-control", disabled = "disabled" })
+            <br />
+            @Html.LabelFor(a => a.NombreDoctor)
+            @Html.TextBoxFor(a => a.NombreDoctor, new { @class = "form-control", disabled = "disabled" })
+            <br />
+            @Html.LabelFor(a => a.PesoPaciente)
+            @Html.TextBoxFor(a => a.PesoPaciente, new { @class = "form-control", disabled = "disabled" })
+            <br />
+            @Html.Label("Alergias")
+            @Html.TextAreaFor(a => a.Alergias, new { @class = "form-control", disabled = "disabled" })
+            <br />
+            @Html.LabelFor(a => a.FechaHoraInicio)
+            @Html.TextBoxFor(a => a.FechaHoraInicio, new { @class = "form-control", disabled = "disabled" })
+            <br />
+            @Html.Label("AntecedentesMedicos")
+            @Html.TextAreaFor(a => a.AntecedentesMedicos, new { @class = "form-control" })
+            @Html.ValidationMessage("AntecedentesMedicos", new { @class = "text-danger" })
+            <br />
+            @Html.Label("Sintomas")
+            @Html.TextAreaFor(a => a.Sintomas, new { @class = "form-control" })
+            @Html.ValidationMessage("Sintomas", new { @class = "text-danger" })
+            <br />
+            @Html.Label("Diagnostico")
+            @Html.TextAreaFor(a => a.Diagnostico, new { @class = "form-control" })
+            @Html.ValidationMessage("Diagnostico", new { @class = "text-danger" })
+            <br />
+            @Html.Label("Receta")
+            @Html.TextAreaFor(a => a.Receta, new { @class = "form-control" })
+            @Html.ValidationMessage("Receta", new { @class = "text-danger" })
+            <br />
+
+            <div class="pull-left">
+                <button type="button" class="btn btn-danger" onclick="document.location.href = '@Url.Content("~/Citas")'">
+                    <span class="glyphicon glyphicon-chevron-left"> Volver</span>
+                </button>
+            </div>
+
+            <div class="pull-right">
+                <button id="btnGuardar" type="submit" class="btn btn-success">
+                    <span class="glyphicon glyphicon-ok"> Marcar Atendida</span>
+                </button>
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var urlRoot = "@Url.Content("~/")";
+    </script>
+
+    @if (Model != null && ViewBag.MensajeCitaAtendida != null)
+    {
+        <script>
+            alertify.alert("@ViewBag.MensajeCitaAtendida", () => { document.location.href = "@Url.Content("~/Citas")" }).set({ title: 'Correcto!' });
+        </script>
+    }
+}

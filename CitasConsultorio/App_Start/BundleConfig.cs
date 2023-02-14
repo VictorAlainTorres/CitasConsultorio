@@ -19,8 +19,14 @@ namespace CitasConsultorio
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/moment").Include(
+                      "~/Scripts/moment-with-locales.min.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/datetimepicker").Include(
+                      "~/Scripts/bootstrap-datetimepicker.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/alertify").Include(
                       "~/Scripts/alertifyjs/alertify.min.js"));
@@ -30,6 +36,7 @@ namespace CitasConsultorio
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/bootstrap-datetimepicker.min.css",
                       "~/Scripts/alertifyjs/css/alertify.min.css",
                       "~/Scripts/alertifyjs/css/themes/bootstrap.min.css",
                       "~/Scripts/jquery-ui/jquery-ui.min.css",
